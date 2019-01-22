@@ -2,9 +2,14 @@ package com.example.spring.stop.smoking.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.spring.stop.smoking.Repository.UserRegisterRepository;
 import com.example.spring.stop.smoking.model.UserRegister;
@@ -31,31 +36,42 @@ public class UserRegisterService {
 		
 	}
 	
-	
- 	/*find  Registered user by id*/
-	
-	
-	
-	public Optional<UserRegister> findById(Integer rid) {
+
+	/*Get User by User id*/
+	 
+	public ResponseEntity<Optional<UserRegister>> findById(@PathVariable(value="id") Integer rid){
 		
-		 return userRegisterRepository.findById(rid);	
+		Optional<UserRegister> user =userRegisterRepository.findById(rid);
 		
-	}	
+		
+		if(user==null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(user);
+		
+	}
+	
 	
 	/*Update User */
-	 public List<UserRegister> update(@PathVariable (value="id")Integer rid){
-		 	
-		 UserRegister user = new UserRegister();
-	 
-		 user.setPhone("90002345");
-		 user.setEmail("email@email.com");
-	 
-      		 userRegisterRepository.save(user);
-			return  userRegisterRepository.findAll();
-				
-		 }   
 	
-	 /*Update Password */ 
+	public ResponseEntity<UserRegister> updateUser(@PathVariable(value="id")Integer rid,@Valid @RequestBody UserRegister userDetails){
+			
+		Optional<UserRegister>  opuser = userRegisterRepository.findById(rid);
+		UserRegister user = opuser.get();
+			if(user==null) {
+				return ResponseEntity.notFound().build();
+			}
+			
+			user.setEmail(userDetails.getEmail());
+			user.setPhone(userDetails.getPhone());
+			 
+			UserRegister updateUser = userRegisterRepository.save(user);
+			return ResponseEntity.ok().body(updateUser);
+						
+		}
+	 
+	
+	/*Update Password */ 
 	
 
 }

@@ -1,16 +1,17 @@
-/*
+
  package com.example.spring.stop.smoking.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
  
+@EnableGlobalMethodSecurity(prePostEnabled= true) 
+@EnableWebSecurity 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -20,12 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        http
 	                .authorizeRequests()
 	                    .antMatchers(
-	                            "/login",
-	                            "/register",
-	                            "/js/**",
-	                            "/css/**",
-	                            "/img/**",
-	                            "/webjars/**").permitAll()
+	                            "/ ").permitAll()
 	                    .anyRequest().authenticated()
 	                .and()
 	                    .formLogin()
@@ -48,4 +44,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
 
 }
-*/

@@ -1,5 +1,6 @@
 package com.example.spring.stop.smoking.model;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -7,13 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+//import javax.validation.constraints.NotBlank;
 
 @Entity
-public class UserRegister {
+public class UserRegister implements UserDetails {
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int rid;
 	//@NotBlank
    	private String firstname;
@@ -49,6 +53,9 @@ public class UserRegister {
 	public void setRid(int rid) {
 		this.rid = rid;
 	}
+	
+	
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -56,12 +63,16 @@ public class UserRegister {
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
+	
+	
 	public String getMiddleName() {
 		return middlename;
 	}
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
+	
+	
 	public String getLastname() {
 		return lastname;
 	}
@@ -111,9 +122,7 @@ public class UserRegister {
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	public String getMiddlename() {
-		return middlename;
-	}
+ 
 	public GenderType getGender() {
 		return gender;
 	}
@@ -125,6 +134,36 @@ public class UserRegister {
 	}
 	public void setDrinking(DrinkingType drinking) {
 		this.drinking = drinking;
+	}
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

@@ -8,12 +8,16 @@ import java.util.Optional;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+
 import com.example.spring.stop.smoking.model.UserLogin;
 import com.example.spring.stop.smoking.model.UserRegister;
 import com.example.spring.stop.smoking.service.UserLoginService;
@@ -57,48 +61,40 @@ import javax.validation.Valid;
 	/*-------------------------------------------------------------------------------------*/
 	 @Autowired
 	 UserRegisterService userRegister;
-	 
-	//to get register page form
-	 @RequestMapping("/register")
-	 public ModelAndView  register() {
-	     ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.setViewName("register");
-	     return modelAndView;
-	 }
-		
-	 /*save  Registered user */
-	 @RequestMapping(value="/register",method=RequestMethod.POST)
+	 	
+	 /*Save  Registered user */
+	 @PostMapping("/user/register")
 	 public UserRegister createUserRegister(@Valid @RequestBody UserRegister userr) {
 		 
 		 return userRegister.save(userr);
 		 
 	 }
 	 
-	 /*Get all  Registered user */
+	 /*Get all  Registered User */
 	 
-	 @GetMapping("/all")
+	 @GetMapping("/user/all")
 	 public List<UserRegister> getAllRegisteredUsers(){
 		 return userRegister.findAll();
 	 }
 	 
 	  
-	 /*Get User by ID */
+	 /*Get Registered User by ID */
 	 
 	 @GetMapping("/user/{id}")
-	 public   Optional<UserRegister> getRegisterUserById(@PathVariable (value="id")Integer rid){
+	 public   ResponseEntity<Optional<UserRegister>> getRegisterUserById(@PathVariable (value="id")Integer rid){
 		 
 		return userRegister.findById(rid);
 			
 	 }   
   
- /*Update User by ID */
+	 /*Update Registered User by ID */
 	 
-	 @GetMapping("/user/update/{id}")
-	 public   List<UserRegister> update(@PathVariable (value="id")Integer rid){
-		 
-		return userRegister.update(rid) ;
+ 	 @PutMapping("/user/update/{id}")
+	 public ResponseEntity< UserRegister> updateUser(@PathVariable(value="id")Integer rid,@Valid @RequestBody UserRegister userDetails){
 			
-	 }   
-	
+		 return userRegister.updateUser(rid, userDetails);
+		 
 		
+		}
+	 	
 }
