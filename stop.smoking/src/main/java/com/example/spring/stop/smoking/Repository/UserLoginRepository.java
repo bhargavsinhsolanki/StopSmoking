@@ -7,4 +7,5 @@ import com.example.spring.stop.smoking.model.UserLogin;;
 public interface UserLoginRepository extends JpaRepository<UserLogin, Integer> {
 	
 	
+	
 }

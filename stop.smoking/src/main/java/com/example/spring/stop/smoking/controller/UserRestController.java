@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -30,19 +29,9 @@ import javax.validation.Valid;
 	 @Autowired
 	 UserLoginService userLogin;
 	 
-//	  @Autowired
-//	  private PasswordEncoder passwordEncoder;
-	 
-	//to get login page form
-	 @RequestMapping("/login")
-	 public ModelAndView login () {
-	     ModelAndView modelAndView = new ModelAndView();
-	     modelAndView.setViewName("login");
-	     return modelAndView;
-	 }
-	 	 
+
 	 /*save login user */
-	 @RequestMapping(value="/login", method=RequestMethod.POST)
+	 @RequestMapping(value="/user/login", method=RequestMethod.POST)
 	 public UserLogin createUserLogin(@Valid @RequestBody UserLogin userl) {
 		 
 	 

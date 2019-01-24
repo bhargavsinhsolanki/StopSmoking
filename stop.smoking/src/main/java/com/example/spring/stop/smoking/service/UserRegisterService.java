@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +21,13 @@ public class UserRegisterService {
 	@Autowired
 	 UserRegisterRepository userRegisterRepository;
 	
-	/* save user*/
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
+	/* save user*/
 	public UserRegister save(UserRegister userr) {
+		 userr.setPassword(passwordEncoder.encode(userr.getPassword()));
 		return userRegisterRepository.save(userr);
 		
 	}

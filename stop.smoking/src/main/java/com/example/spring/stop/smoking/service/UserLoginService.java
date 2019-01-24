@@ -7,21 +7,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.spring.stop.smoking.Repository.UserLoginRepository;
 import com.example.spring.stop.smoking.model.UserLogin;
  
  
  
-@Service("userDetailsService")
-public class UserLoginService implements UserDetailsService {
+@Service(value= "userlService")
+public class UserLoginService implements UserDetailsService  {
 	
 	@Autowired
 	 UserLoginRepository userLoginRepository;
 	
+	
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	
 	/* save user*/
 	
 	public UserLogin save(UserLogin userl) {
+		 userl.setPassword(passwordEncoder.encode(userl.getPassword()));
 		return userLoginRepository.save(userl);
 		
 	}
